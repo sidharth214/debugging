@@ -1,0 +1,132 @@
+<html>
+<head>
+<title>Simple Calendar</title>
+
+<style>
+body {
+    background-color: lightblue;
+}
+
+#calendar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+table {
+    border-collapse: collapse;
+    margin-bottom: 10px;
+    width: 100%;
+    background-color: white;
+    color: red;
+    border: 1px solid black;
+}
+
+th, td {
+    padding: 5px;
+    text-align: center;
+    border: 1px solid black;
+}
+
+.month-name {
+    color: green;
+}
+
+.weekdays {
+    color: purple;
+}
+
+.dates {
+    color: blue;
+}
+
+</style>
+</head>
+
+<body>
+
+<h2>Generate Calendar for a Year</h2>
+
+<p>Enter the year:</p>
+
+<input type="number" id="yearInput" placeholder="Enter year">
+
+<button onclick="generateCalendar()">Generate Calendar</button>
+
+<div id="calendar"></div>
+
+<script>
+
+function generateCalendar() {
+
+const year = document.getElementById("yearInput").value;
+
+if (!year || isNaN(year) || year < 1000 || year > 9999) {
+    alert("Please enter a valid year between 1000 and 9999.");
+    return;
+}
+
+const calendarDiv = document.getElementById("calendar");
+
+calendarDiv.innerHTML = '';
+
+const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+for (let month = 0; month < 12; month++) {
+
+let Month = `<table border="1">
+<tr><th colspan="7" class="month-name"><strong>${months[month]} ${year}</strong></th></tr>`;
+
+Month += '<tr class="weekdays"><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr>';
+
+const firstDay = new Date(year, month, 1).getDay();
+
+const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+let dayCounter = 1;
+
+for (let i = 0; i < 6; i++) {
+
+let row = '<tr>';
+
+for (let j = 0; j < 7; j++) {
+
+if (i === 0 && j < firstDay) {
+    row += '<td></td>';
+}
+
+else if (dayCounter <= daysInMonth) {
+
+    row += `<td class="dates">${dayCounter}</td>`;
+
+    dayCounter++;
+}
+
+else {
+    row += '<td></td>';
+}
+
+}
+
+row += '</tr>';
+
+Month += row;
+
+if (dayCounter > daysInMonth)
+    break;
+
+}
+
+Month += '</table>';
+
+calendarDiv.innerHTML += Month;
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
+
