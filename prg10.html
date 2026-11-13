@@ -1,0 +1,144 @@
+<html>
+<head>
+<title>Online Exam</title>
+<style>
+body {
+font-family: Arial, sans-serif;
+margin: 20px;
+}
+.timer
+{
+font-size: 20px;
+font-weight: bold;
+}
+.question {
+margin-bottom: 20px;
+}
+.btn {
+padding: 10px 20px;
+background-color: blue;
+color: white;
+border: none;
+cursor: pointer;
+}
+</style>
+</head>
+<body bgcolor="pink">
+<center><h1>ONLINE EXAMINATION</h1></center>
+<div class="timer" id="timer">Time Left: 10:00</div>
+<form id="examForm">
+<div class="question">
+<p>1. What is the capital of France?</p>
+<input type="radio" name="q1" value="London" id="q1a">London<br>
+<input type="radio" name="q1" value="Berlin" id="q1b">Berlin<br>
+<input type="radio" name="q1" value="Paris" id="q1c">Paris<br>
+</div>
+<div class="question">
+<p>2. Who is known as the father of computers?</p>
+<input type="radio" name="q2" value="Charles Babbage" id="q2a">Charles Babbage<br>
+<input type="radio" name="q2" value="Alan Turing" id="q2b">Alan Turing<br>
+<input type="radio" name="q2" value="Bill Gates" id="q2c">Bill Gates<br>
+</div>
+<div class="question">
+<p>3. What is 30+40+15?</p>
+<input type="radio" name="q3" value="40" id="q3a">40<br>
+<input type="radio" name="q3" value="85" id="q3b">85<br>
+<input type="radio" name="q3" value="90" id="q3c">90<br>
+</div>
+<div class="question">
+<p>4. Which is the deepest ocean in the world?</p>
+<input type="radio" name="q4" value="Atlantic Ocean" id="q4a">Atlantic Ocean<br>
+<input type="radio" name="q4" value="Arctic Ocean" id="q4b">Arctic Ocean<br>
+<input type="radio" name="q4" value="Pacific Ocean" id="q4c">Pacific Ocean<br>
+</div>
+<div class="question">
+<p>5. Who painted the Mona Lisa?</p>
+<input type="radio" name="q5" value="Haimenszoon" id="q5a">Haimenszoon<br>
+<input type="radio" name="q5" value="Leonardo da Vinci" id="q5b">Leonardo da Vinci<br>
+<input type="radio" name="q5" value="Pablo Picasso" id="q5c">Pablo Picasso<br>
+</div>
+<div class="question">
+<p>6. What is the national tree of India?</p>
+<input type="radio" name="q6" value="Banyan Tree" id="q6a">Banyan Tree<br>
+<input type="radio" name="q6" value="Banana Tree" id="q6b">Banana Tree<br>
+<input type="radio" name="q6" value="Oak Tree" id="q6c">Oak Tree<br>
+</div>
+<div class="question">
+<p>7. Who wrote the play "Romeo and Juliet"?</p>
+<input type="radio" name="q7" value="William Shakespeare" id="q7a">William Shakespeare<br>
+<input type="radio" name="q7" value="Ben Johnson" id="q7b">Ben Johnson<br>
+<input type="radio" name="q7" value="John Webster" id="q7c">John Webster<br>
+</div>
+<div class="question">
+<p>8. Which element has the chemical symbol "O"?</p>
+<input type="radio" name="q8" value="Ozone" id="q8a">Ozone<br>
+<input type="radio" name="q8" value="Osmium" id="q8b">Osmium<br>
+<input type="radio" name="q8" value="Oxygen" id="q8c">Oxygen<br>
+</div>
+<div class="question">
+<p>9. How many continents are there in the world?</p>
+<input type="radio" name="q9" value="7" id="q9a">7<br>
+<input type="radio" name="q9" value="8" id="q9b">8<br>
+<input type="radio" name="q9" value="5" id="q9c">5<br>
+</div>
+<div class="question">
+<p>10. When is Republic Day celebrated in India?</p>
+<input type="radio" name="q10" value="8th Oct" id="q10a">8th October<br>
+<input type="radio" name="q10" value="26th Jan" id="q10b">26th January<br>
+<input type="radio" name="q10" value="5th May" id="q10c">5th May<br>
+</div>
+<center>
+<button type="button" class="btn" onclick="submitExam()">Submit</button>
+</center>
+</form>
+<p id="result"></p>
+<script>
+let time = 600;
+const timerElement = document.getElementById('timer');
+function updateTimer() {
+const minutes = Math.floor(time / 60);
+const seconds = time % 60;
+timerElement.textContent =
+`Time Left: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+ if (time > 0) {
+time--;
+setTimeout(updateTimer, 1000);
+} else {
+alert("Time is up!");
+submitExam();
+}
+}
+updateTimer();
+function submitExam() {
+const form = document.getElementById('examForm');
+const resultElement = document.getElementById('result');
+const answers = {
+q1: "Paris",
+q2: "Charles Babbage",
+q3: "85",
+q4: "Pacific Ocean",
+q5: "Leonardo da Vinci",
+q6: "Banyan Tree",
+q7: "William Shakespeare",
+q8: "Oxygen",
+q9: "7",
+q10: "26th Jan"
+};
+let score = 0;
+let total = Object.keys(answers).length;
+for (let key in answers) {
+const answer = form.elements[key];
+const selected =
+[...answer].find(input => input.checked);
+if (selected && selected.value === answers[key]) {
+score++;
+}
+}
+resultElement.textContent =
+`You scored ${score} out of ${total}`;
+resultElement.style.fontSize = "18px";
+resultElement.style.fontWeight = "bold";<
+}
+</script>
+</body>
+</html>
